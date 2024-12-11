@@ -7,7 +7,7 @@ export default function PAGE() {
 
   
   const data = [
-    { id: '1', title: 'Dom Casmurro', author: 'Machado de Assis', year: '1899', qtd: '2' },
+    { id: '1', title: 'Dom Casmurro 😀', author: 'Machado de Assis', year: '1899', qtd: '2' },
     { id: '2', title: 'Memórias Póstumas de Brás Cubas', author: 'Machado de Assis', year: '1881', qtd: '3' },
     { id: '3', title: 'Grande Sertão: Veredas', author: 'João Guimarães Rosa', year: '1956', qtd: '4' },
     { id: '4', title: 'O Cortiço', author: 'Aluísio Azevedo', year: '1890', qtd: '4' },
@@ -28,10 +28,8 @@ export default function PAGE() {
     <View style={styles.container}>
       <StatusBar style="auto" />
 
-      {/* Título */}
-      <Text style={styles.title}>Alexandria</Text>
+      <Text style={styles.title}>Atlantis - a maior biblioteca de todos os tempo 🧜‍♂️🌊</Text>
 
-      {/* Lista de Livros */}
       <FlatList
         data={data}
         keyExtractor={(item) => item.id}
@@ -53,22 +51,22 @@ export default function PAGE() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#000',
     paddingTop: 50,
     paddingHorizontal: 20,
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#FFFAFA',
     marginBottom: 20,
     textAlign: 'center',
   },
   pressableButton: {
     backgroundColor: '#008B8B', 
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 10,
+    padding: 12,
+    borderRadius: 30,
+    marginBottom: 8,
     alignItems: 'center',
   },
   pressableText: {

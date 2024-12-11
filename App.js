@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BookList from 'BookList';
 import BookDetails from 'BookDetails';
 
-// Criação do Stack Navigator
 const Stack = createStackNavigator();
 
 export default function App() {
