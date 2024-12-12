@@ -22,6 +22,7 @@ export default function PAGE() {
       <StatusBar style="auto" />
 
       <Text style={styles.title}>Atlantis - a maior biblioteca de todos os tempo 🧜‍♂️🌊</Text>
+      <Text style={styles.title}>O final feliz começa quando você devolve o livro no prazo❤️❤️❤️</Text>
 
       <FlatList
         data={book}
@@ -69,6 +70,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   faltaLivro: {
-    backgroundColor: '#fd7e14'
+    background: '#fd7e14'
   }
 });
