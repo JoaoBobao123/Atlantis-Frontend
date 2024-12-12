@@ -25,14 +25,20 @@ export const getRequest = async () => {
 };
 
 
-export const postRequest = async (id) => {
+export const postRequest = async (id, name, aniversario) => {
   try {
+
+    const data = {
+      name: name,
+      dataNascimento: aniversario
+    };
 
     const response = await fetch(`${BASE_URL}/${id}/rent`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(data)
     });
 
     const textData = await response.text(); 

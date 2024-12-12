@@ -8,12 +8,13 @@ export default function PAGE() {
   const router = useRouter();
 
   const [book, setBook] = useState([])
-  useEffect(()=>{
-    const getLivros = async () => {
-      const resp = await getRequest()
-      setBook(resp)
-    }
+  
+  const getLivros = async () => {
+    const resp = await getRequest()
+    setBook(resp)
+  }
 
+  useEffect(()=>{
     getLivros()
   },[])
   return (
@@ -30,9 +31,10 @@ export default function PAGE() {
             onPress={() => {
               router.push(`/books/${item.id}`);
             }}
-            style={styles.pressableButton}
+            style={[styles.pressableButton, item.quantity <= 0 ? styles.faltaLivro : ""]}
+            disabled={item.quantity > 0 ? false : true}
           >
-            <Text style={styles.pressableText}>{item.title}</Text>
+            <Text style={styles.pressableText}>{item.title} - {item.quantity <= 0 ? "Em falta" : item.quantity} </Text>
           </Pressable>
         )}
       />
@@ -66,4 +68,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontWeight: 'bold',
   },
+  faltaLivro: {
+    backgroundColor: '#fd7e14'
+  }
 });
