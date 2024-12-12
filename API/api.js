@@ -1,4 +1,4 @@
-//const BASE_URL = 'http://localhost:5287/api/Biblioteca'; // Certifique-se de que esse URL é correto
+const BASE_URL = 'http://localhost:5013/api/Library'; // Certifique-se de que esse URL é correto
 
 
 export const getRequest = async () => {
@@ -25,25 +25,15 @@ export const getRequest = async () => {
 };
 
 
-export const postRequest = async (title, desc) => {
+export const postRequest = async (id) => {
   try {
-    let myBody = {
-      id: 0,
-      title: title,
-      description: desc,
-    };
 
-    const response = await fetch(BASE_URL, {
+    const response = await fetch(`${BASE_URL}/${id}/rent`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(myBody),
     });
-
-    if (!response.ok) {
-      throw new Error("Post request failed!");
-    }
 
     const textData = await response.text(); 
     return JSON.parse(textData);
@@ -55,10 +45,10 @@ export const postRequest = async (title, desc) => {
 };
 
 
-export const deleteRequest = async (id) => {
+export const getRequestById = async (id) => {
   try {
     const response = await fetch(`${BASE_URL}/${id}`, {
-      method: "DELETE",
+      method: "GET",
       headers: {
         "Content-Type": "text/plain",
       },
@@ -67,6 +57,10 @@ export const deleteRequest = async (id) => {
     if (!response.ok) {
       throw new Error("Delete request failed!");
     }
+    const textData = await response.text();
+    const data = JSON.parse(textData);
+
+    return data;
   } catch (error) {
     console.error(error);
     throw error;

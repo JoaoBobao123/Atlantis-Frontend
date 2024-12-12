@@ -1,6 +1,7 @@
 import { useLocalSearchParams, useRouter, useSearchParams } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { getRequestById, postRequest } from '../../API/api';
 
 export default function BookDetails() {
   const router = useRouter();
@@ -8,114 +9,30 @@ export default function BookDetails() {
   const [name, setName] = useState('');
   const [dob, setDob] = useState('');
   const [isRented, setIsRented] = useState(false);
-
- 
-  const data = [
-    { 
-      id: '1', 
-      title: 'Dom Casmurro', 
-      author: 'Machado de Assis', 
-    },
-    { 
-      id: '2', 
-      title: 'Memórias Póstumas de Brás Cubas', 
-      author: 'Machado de Assis', 
-     },
-    { 
-      id: '3', 
-      title: 'Grande Sertão: Veredas', 
-      author: 'João Guimarães Rosa', 
-    },
-    { 
-      id: '4', 
-      title: 'O Cortiço', 
-      author: 'Aluísio Azevedo', 
-     },
-    { 
-      id: '5', 
-      title: 'Iracema', 
-      author: 'José de Alencar', 
-     },
-    { 
-      id: '6', 
-      title: 'Macunaíma', 
-      author: 'Mário de Andrade', 
-      summary: 'As aventuras cômicas e surrealistas de Macunaíma, o herói sem caráter, em sua busca por uma pedra mágica.' 
-    },
-    { 
-      id: '7', 
-      title: 'Capitães da Areia', 
-      author: 'Jorge Amado', 
-     },
-    { 
-      id: '8', 
-      title: 'Vidas Secas', 
-      author: 'Graciliano Ramos', 
-     },
-    { 
-      id: '9', 
-      title: 'A Moreninha', 
-      author: 'Joaquim Manuel de Macedo', 
-    },
-    { 
-      id: '10', 
-      title: 'O Tempo e o Vento', 
-      author: 'Erico Verissimo', 
-         },
-    { 
-      id: '11', 
-      title: 'A Hora da Estrela', 
-      author: 'Clarice Lispector', 
-        },
-    { 
-      id: '12', 
-      title: 'O Quinze', 
-      author: 'Rachel de Queiroz', 
-         },
-    { 
-      id: '13', 
-      title: 'Menino de Engenho', 
-      author: 'José Lins do Rego', 
-    
-    },
-    { 
-      id: '14', 
-      title: 'Sagarana', 
-      author: 'João Guimarães Rosa', 
-    },
-    { 
-      id: '15', 
-      title: 'Fogo Morto', 
-      author: 'José Lins do Rego', 
+  
+  const [book, setBook] = useState([])
+  useEffect(()=>{
+    const getLivros = async () => {
+      const resp = await getRequestById(id)
+      setBook(resp)
     }
-  ];
 
-
-  const book = data.find((item) => item.id === id);
-
-  if (!book) {
-    return (
-      <View style={styles.container}>
-        <Text>Livro não encontrado!</Text>
-      </View>
-    );
+    getLivros()
+  },[])
+  
+  const postLivros = async () => {
+    const add = await postRequest(id);
+    console.log(add)
   }
 
-  const handleRent = () => {
-    if (name && dob) {
-      setIsRented(true);
-    } else {
-      alert('Por favor, insira seu nome e data de nascimento!');
-    }
-  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{book.title}</Text>
       <Text style={styles.author}>Autor: {book.author}</Text>
-      <Text style={styles.summary}>{book.summary}</Text>
+      <Text style={styles.summary}>{book.year}</Text>
 
-      {!isRented ? (
+     
         <>
           <Text style={styles.prompt}>Deseja alugar este livro? Preencha seus dados abaixo:</Text>
           <TextInput
@@ -130,11 +47,9 @@ export default function BookDetails() {
             value={dob}
             onChangeText={setDob}
           />
-          <Button title="Alugar" onPress={handleRent} />
+          <Button title="Alugar" onPress={()=> postLivros()} />
         </>
-      ) : (
-        <Text style={styles.success}>Obrigado, {name}! O livro foi alugado com sucesso.</Text>
-      )}
+     
 
       <Button title="Voltar" onPress={() => router.push('/')} />
     </View>
